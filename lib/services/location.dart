@@ -4,6 +4,14 @@ class Location {
   double? latitude;
   double? longitude;
 
+  Future<void> getCurrentLocation() async {
+    await checkLocationPermission();
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.low);
+    latitude = position.latitude;
+    longitude = position.longitude;
+  }
+
   Future<void> checkLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -26,13 +34,5 @@ class Location {
       return Future.error(
           'A permissão para acesso a localização foi negada para sempre. Não é possível pedir permissão.');
     }
-  }
-
-  Future<void> getCurrentLocation() async {
-    await checkLocationPermission();
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.low);
-    latitude = position.latitude;
-    longitude = position.longitude;
   }
 }

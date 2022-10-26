@@ -13,8 +13,11 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
   Future<void> getLocation() async {
-    Location? location;
-    location!.getCurrentLocation();
+    print("antes de chamar getCurrentLocation");
+
+    Location location = Location();
+    await location.getCurrentLocation();
+    print("voltou do getcurrentlocation");
     print("Latitude: ${location.latitude}");
     print("Longitude: ${location.longitude}");
   }
@@ -43,16 +46,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     getData();
-    return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            // obtém a localização atual
-            getLocation();
-          },
-          child: const Text('Obter Localização'),
-        ),
-      ),
-    );
+    return Scaffold();
   }
 }
