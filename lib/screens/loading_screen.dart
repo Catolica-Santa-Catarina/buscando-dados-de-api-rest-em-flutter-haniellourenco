@@ -36,7 +36,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getLocation();
+    // getLocation();
   }
 
   void getData() async {
@@ -45,12 +45,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
         'data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric');
 
     var weatherData = await networkHelper.getData();
-    pushToLocationScreen();
+    pushToLocationScreen(weatherData);
   }
 
-  void pushToLocationScreen() {
+  void pushToLocationScreen(dynamic weatherData) {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return const LocationScreen();
+      return LocationScreen(localWeatherData: weatherData);
     }));
   }
 
