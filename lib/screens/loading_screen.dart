@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../services/location.dart';
 import '../services/networking.dart';
+import 'location_screen.dart';
 
 const apiKey = '556cd7311cf5a5486f28f8942c0544bc';
 
@@ -43,11 +45,23 @@ class _LoadingScreenState extends State<LoadingScreen> {
         'data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric');
 
     var weatherData = await networkHelper.getData();
+    pushToLocationScreen();
+  }
+
+  void pushToLocationScreen() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return const LocationScreen();
+    }));
   }
 
   @override
   Widget build(BuildContext context) {
-    getData();
-    return Scaffold();
+    // getData();
+    return const Center(
+      child: SpinKitDoubleBounce(
+        color: Colors.white,
+        size: 100.0,
+      ),
+    );
   }
 }
