@@ -36,7 +36,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // getLocation();
+    getLocation();
   }
 
   void getData() async {
