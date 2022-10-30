@@ -1,3 +1,9 @@
+import 'package:tempo_template/services/location.dart';
+import 'package:tempo_template/services/networking.dart';
+
+const apiKey = '556cd7311cf5a5486f28f8942c0544bc';
+const openWeatherMapURL = 'https://api.openweathermap.org/data/2.5/weather';
+
 class WeatherModel {
   String getWeatherIcon(int condition) {
     if (condition < 300) {
@@ -29,5 +35,17 @@ class WeatherModel {
     } else {
       return 'Leve um 🧥';
     }
+  }
+
+  Future<dynamic> getLocationWeather() async {
+    Location location = Location();
+    await location.getCurrentLocation();
+
+    NetworkHelper networkHelper = NetworkHelper(
+        '$openWeatherMapURL?lat=${location.latitude}&lon=${location.longitude}'
+        '&appid=$apiKey&units=metric');
+
+    var weatherData = await networkHelper.getData();
+    return weatherData;
   }
 }
